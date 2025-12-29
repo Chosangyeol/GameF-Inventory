@@ -1,0 +1,41 @@
+1. CharacterModel
+- 임시 캐릭터 클래스
+- 인벤토리 기능 작동 확인을 위해 임시로 생성한 캐릭터 클래스
+- Awake에서 Inventory 클래스 생성
+
+2. Inventory
+- 인벤토리 클래스
+- 캐릭터 클래스에서 Inventory 생성자로 클래스 생성 후 사용
+- List<ItemBase>로 아이템 관리
+- AddItem : 인벤토리에 아이템을 추가하는 함수
+- UpdateItem : 아이템 중 인벤토리에서 지속적으로 효과를 일으키는 아이템을 작동시키는 함수
+	- 캐릭터 클래스의 Update에서 호출하는 것으로 사용
+- RemoveItem : 인벤토리에서 아이템을 제거하는 함수
+
+
+3. ItemEnums
+- 아이템에게 필요한 Enum을 모아놓은 클래스
+- ItemType : 아이템의 종류를 구분하는 Enum ( 장비, 소비, 퀘스트 등 )
+- ItemRarity : 아이템의 등급을 구분하는 Enum ( 일반, 희귀, 영웅 등 )
+- EquipItemType : 장착 아이템의 착용 부위를 구분하는 Enum ( 머리, 몸통, 하의 등 )
+
+4. ItemBaseSO
+- 아이템에게 필요한 데이터를 담고있는 추상 ScriptableObject 클래스
+- 해당 클래스를 상속하여 추가 아이템을 구현 ( 장비, 소비 등 )
+- itemID : 아이템을 내부적으로 구분하는 아이템의 고유 ID
+- CreateItem : ItemBase를 return하는 추상 함수로, 각 SO에 맞는 ItemBase를 생성해서 return하게 구현
+
+5. ItemBase
+- 각 아이템 인스턴스를 구성하는 추상 클래스
+- 해당 클래스를 상속하여 추가 아이템을 구현 ( 장비, 소비 등 )
+- maxStack : ItemBaseSO에서 받아온 해당 아이템의 최대 중첩 수
+- currentStack : 해당 아이템의 현제 중첩 수
+
+- OnAddInventory : 아이템이 인벤토리에 추가될 때 작동할 추상 함수
+- OnUpdateInventory : 아이템이 인벤토리에서 지속적으로 실행할 효과가 있을때 작동할 추상 함수
+- OnRemoveInventory : 아이템이 인벤토리에서 제거될 때 작동할 추상 함수 
+
+6. Item
+- 아이템 오브젝트에 들어갈 클래스
+- 해당 클래스에서는 ItemBaseSO를 상속받는 SO를 바탕으로 해당 SO에 맞는 ItemBase를 상속받는 아이템 클래스를 생성함
+- OnEnable에서 생성함
