@@ -7,6 +7,8 @@ public abstract class ItemBaseSO : ScriptableObject
     public int itemID;
     [Header("아이템 이름")]
     public string itemName;
+    [Header("아이템 아이콘")]
+    public Sprite itemIcon;
     [Header("아이템 종류")]
     public ItemEnums.ItemType itemType;
     [Header("아이템 등급")]

@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class EquipItemBase : ItemBase
 {
+    public EquipItemSO itemBaseSO;
 
-    public EquipItemBase(ItemBaseSO itemBaseSO) : base(itemBaseSO)
+    public EquipItemBase(EquipItemSO itemBaseSO) : base(itemBaseSO)
     {
         this.itemBaseSO = itemBaseSO;
         this.maxStack = 1;
