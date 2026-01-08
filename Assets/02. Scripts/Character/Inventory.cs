@@ -9,6 +9,11 @@ public class Inventory
     private List<ItemBase> items;
     public List<ItemBase> Items => items;
 
+    public int slotSize = 30;
+
+    private InventorySlot inventorySlot;
+    public InventorySlot InventorySlot => inventorySlot;
+
     /// <summary>
     /// 인벤토리에 아이템이 추가된 후 호출되는 이벤트
     /// EX) UI 업데이트
@@ -21,9 +26,10 @@ public class Inventory
     /// </summary>
     public event Action<ItemBase> OnRemoveItemInventory;
 
-    public Inventory(CharacterModel model)
+    public Inventory(CharacterModel model, int slotSize)
     {
         owner = model;
+        this.slotSize = slotSize;
         items = new List<ItemBase>();
         return;
     }
@@ -34,6 +40,12 @@ public class Inventory
     /// <param name="item">인벤토리에 추가할 아이템</param>
     public void AddItem(ItemBase item)
     {
+        if (items.Count >= slotSize)
+        {
+            Debug.Log("인벤토리 공간 부족");
+            return;
+        }
+
         // 1. 아이템이 스택이 불가능한 경우
         if (!item.itemBaseSO.stackable)
         {
@@ -67,11 +79,16 @@ public class Inventory
         // 3. 남은 스택을 새로운 아이템으로 추가하는 경우
         while (item.currentStack > 0)
         {
+            if (items.Count >= slotSize)
+                return;
+
             int addStack = Mathf.Min(item.maxStack, item.currentStack);
 
-            items.Add(item);
-            item.OnAddInventory();
-            OnAddItemInventory?.Invoke(item);
+            ItemBase newItem = item.Clone(addStack);
+            items.Add(newItem);
+
+            newItem.OnAddInventory();
+            OnAddItemInventory?.Invoke(newItem);
 
             item.currentStack -= addStack;
         }   

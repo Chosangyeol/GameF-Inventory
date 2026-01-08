@@ -12,6 +12,11 @@ public class EquipItemBase : ItemBase
         return;
     }
 
+    public override ItemBase Clone(int stack)
+    {
+        return new EquipItemBase(this.itemBaseSO);
+    }
+
     public override void OnAddInventory()
     {
         Debug.Log("인벤토리 추가 : " + itemBaseSO.itemName);

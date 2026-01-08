@@ -13,6 +13,8 @@ public abstract class ItemBase
         return;
     }
 
+    public abstract ItemBase Clone(int stack);
+
     /// <summary>
     /// 아이템이 인벤토리에 추가될때 호출되는 함수
     /// Inventory 클래스의 AddItem 함수에서 호출
