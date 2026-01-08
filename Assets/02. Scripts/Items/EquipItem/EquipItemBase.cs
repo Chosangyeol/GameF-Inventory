@@ -4,7 +4,7 @@ public class EquipItemBase : ItemBase
 {
     public EquipItemSO itemBaseSO;
 
-    public EquipItemBase(EquipItemSO itemBaseSO) : base(itemBaseSO)
+    public EquipItemBase(EquipItemSO itemBaseSO, int currentStack) : base(itemBaseSO, currentStack)
     {
         this.itemBaseSO = itemBaseSO;
         this.maxStack = 1;
@@ -14,7 +14,7 @@ public class EquipItemBase : ItemBase
 
     public override ItemBase Clone(int stack)
     {
-        return new EquipItemBase(this.itemBaseSO);
+        return new EquipItemBase(this.itemBaseSO, stack);
     }
 
     public override void OnAddInventory()

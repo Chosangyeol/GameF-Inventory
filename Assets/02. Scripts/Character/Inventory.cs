@@ -11,8 +11,6 @@ public class Inventory
 
     public int slotSize = 30;
 
-    private InventorySlot inventorySlot;
-    public InventorySlot InventorySlot => inventorySlot;
 
     /// <summary>
     /// 인벤토리에 아이템이 추가된 후 호출되는 이벤트
@@ -40,18 +38,23 @@ public class Inventory
     /// <param name="item">인벤토리에 추가할 아이템</param>
     public void AddItem(ItemBase item)
     {
-        if (items.Count >= slotSize)
-        {
-            Debug.Log("인벤토리 공간 부족");
-            return;
-        }
+
+        if (item.currentStack < 1) return;
 
         // 1. 아이템이 스택이 불가능한 경우
         if (!item.itemBaseSO.stackable)
         {
-            items.Add(item);
-            item.OnAddInventory();
-            OnAddItemInventory?.Invoke(item);
+            if (items.Count >= slotSize)
+            {
+                Debug.Log("인벤토리 공간 부족");
+                return;
+            }
+
+            ItemBase newItem = item.Clone(item.currentStack);
+            items.Add(newItem);
+            newItem.OnAddInventory();
+            OnAddItemInventory?.Invoke(newItem);
+            item.currentStack -= 1;
             return;
         }
 
@@ -81,6 +84,12 @@ public class Inventory
         {
             if (items.Count >= slotSize)
                 return;
+
+            if (items.Count >= slotSize)
+            {
+                Debug.Log("인벤토리 공간 부족");
+                return;
+            }
 
             int addStack = Mathf.Min(item.maxStack, item.currentStack);
 
@@ -116,5 +125,14 @@ public class Inventory
         items.Remove(item);
         item.OnRemoveInventory();
         OnRemoveItemInventory?.Invoke(item);
+    }
+
+    public void Swap(int from, int to)
+    {
+        if (from < 0 || to < 0) return;
+
+        if (from >= items.Count || to >= items.Count) return;
+
+        (items[from], items[to]) = (items[to], items[from]);
     }
 }

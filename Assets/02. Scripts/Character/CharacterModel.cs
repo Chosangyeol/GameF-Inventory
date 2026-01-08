@@ -8,6 +8,8 @@ public class CharacterModel : MonoBehaviour
     public Inventory Inventory => inventory;
 
     public Item testItem;
+    public Item testItem2;
+
 
     private void Awake()
     {
@@ -20,5 +22,18 @@ public class CharacterModel : MonoBehaviour
         {
             inventory.AddItem(testItem.GetItem());
         }
+
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            inventory.AddItem(testItem2.GetItem());
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            FindAnyObjectByType<UIManager>().inventoryUI.gameObject.SetActive(!FindAnyObjectByType<UIManager>().inventoryUI.gameObject.activeSelf);
+        }
     }
+
+
 }

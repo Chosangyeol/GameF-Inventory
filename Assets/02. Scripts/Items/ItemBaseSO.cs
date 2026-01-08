@@ -20,6 +20,6 @@ public abstract class ItemBaseSO : ScriptableObject
     [Header("아이템 최대 중첩 수")]
     public int maxStack = 99;
 
-    public abstract ItemBase CreateItem();
+    public abstract ItemBase CreateItem(int stack);
 
 }

@@ -5,8 +5,8 @@ public class EquipItemSO : ItemBaseSO
 {
     public ItemEnums.EquipItemType equipItemType;
 
-    public override ItemBase CreateItem()
+    public override ItemBase CreateItem(int stack)
     {
-        return new EquipItemBase(this);
+        return new EquipItemBase(this, stack);
     }
 }

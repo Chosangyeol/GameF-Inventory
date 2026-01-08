@@ -6,10 +6,11 @@ public abstract class ItemBase
     public int maxStack = 99;
     public int currentStack = 1;
 
-    public ItemBase(ItemBaseSO itemBaseSO)
+    public ItemBase(ItemBaseSO itemBaseSO, int currentStack)
     {
         this.itemBaseSO = itemBaseSO;
         this.maxStack = itemBaseSO.maxStack;
+        this.currentStack = currentStack;
         return;
     }
 
