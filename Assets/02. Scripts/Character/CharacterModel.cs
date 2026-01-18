@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterModel : MonoBehaviour
@@ -7,13 +8,16 @@ public class CharacterModel : MonoBehaviour
     private Inventory inventory;
     public Inventory Inventory => inventory;
 
+    private Equipment equipment;
+    public Equipment Equipment => equipment;
+
     public Item testItem;
     public Item testItem2;
-
 
     private void Awake()
     {
         inventory = new Inventory(this, inventorySlotSize);
+        equipment = new Equipment(this);
     }
 
     private void Update()

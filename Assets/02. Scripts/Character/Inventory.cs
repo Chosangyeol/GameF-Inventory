@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory
 {
     private CharacterModel owner;
+    public CharacterModel Owner => owner;
 
     private List<ItemBase> items;
     public List<ItemBase> Items => items;

@@ -9,14 +9,15 @@ public class InventoryUI : MonoBehaviour
     private Inventory inventory;
     private List<InventorySlot> slots = new();
 
-    public void Init(Inventory inventory)
+    public void Init(Inventory inventory, Equipment equipment)
     {
         this.inventory = inventory;
+
 
         for (int i = 0; i < inventory.slotSize; i++)
         {
             InventorySlot slot = Instantiate(slotPrefab, slotParent);
-            slot.Init(inventory, i);
+            slot.Init(inventory,equipment, i);
             slots.Add(slot);
         }
 

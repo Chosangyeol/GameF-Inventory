@@ -20,19 +20,23 @@ public class InventorySlot : MonoBehaviour,
     [SerializeField] private TMP_Text stackText;
 
     private Inventory _inventory;
+    private Equipment _equipment;
 
     private Canvas rootCanvas;
     private Image dragIcon;
     private RectTransform dragIconRect;
 
 
-    private ItemBase CurrentItem =>
+    private ItemBase currentItem =>
         slotIndex < _inventory.Items.Count ? _inventory.Items[slotIndex] : null;
 
+    public ItemBase CurrentItem => currentItem;
+
     #region 생성 및 새로고침
-    public void Init(Inventory inventory, int index)
+    public void Init(Inventory inventory,Equipment equipment, int index)
     {
         _inventory = inventory;
+        _equipment = equipment;
         slotIndex = index;
 
         rootCanvas = GetComponentInParent<Canvas>();
@@ -65,7 +69,10 @@ public class InventorySlot : MonoBehaviour,
 
         if (eventData.clickCount == 2)
         {
-            Use(item);
+            if (item is EquipItemBase)
+            {
+                _equipment.EquipItem(item as EquipItemBase);
+            }
             return;
         }
 

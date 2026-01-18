@@ -6,7 +6,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        inventoryUI.Init(FindAnyObjectByType<CharacterModel>().Inventory);
+        CharacterModel character = FindAnyObjectByType<CharacterModel>();
+
+        inventoryUI.Init(character.Inventory, character.Equipment);
         inventoryUI.gameObject.SetActive(false);
     }
 }

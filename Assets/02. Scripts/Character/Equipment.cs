@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,9 @@ public class Equipment
         { ItemEnums.EquipItemType.Gloves, null },
         { ItemEnums.EquipItemType.Shoes, null }
     };
+
+    public event Action<EquipItemBase> OnEquipItem;
+    public event Action<ItemEnums.EquipItemType> OnUnequipItem;
 
     public Equipment(CharacterModel owner)
     {
